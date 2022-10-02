@@ -1,3 +1,6 @@
 using strange.extensions.signal.impl;
 
-public class SetMagneticEffectActiveSignal : Signal<bool> { }
+namespace Contexts.MainContext
+{
+    public class SetMagneticEffectActiveSignal : Signal<bool> { }
+}

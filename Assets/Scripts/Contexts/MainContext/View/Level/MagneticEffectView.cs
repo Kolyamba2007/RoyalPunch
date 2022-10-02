@@ -1,1 +1,4 @@
-public class MagneticEffectView : ParticleEffectView { }
+namespace Contexts.MainContext
+{
+    public class MagneticEffectView : ParticleEffectView { }
+}

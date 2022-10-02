@@ -1,3 +1,6 @@
 using strange.extensions.signal.impl;
 
-public class LoseSignal : Signal { }
+namespace Contexts.MainContext
+{
+    public class LoseSignal : Signal { }
+}

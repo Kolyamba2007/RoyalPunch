@@ -1,3 +1,6 @@
 using strange.extensions.signal.impl;
 
-public class ContinueGameSignal : Signal { }
+namespace Contexts.MainContext
+{
+    public class ContinueGameSignal : Signal { }
+}

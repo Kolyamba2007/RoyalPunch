@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossData:
     maxHealth: 150
-    force: 500
-    rotateSpeed: 90
+    force: 300
+    rotateSpeed: 150
     defaultAttackDamage: 12
     defaultAttackRange: 3
     superAttackDamage: 30

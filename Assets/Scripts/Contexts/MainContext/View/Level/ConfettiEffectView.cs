@@ -1,5 +1,8 @@
-public class ConfettiEffectView : ParticleEffectView
+namespace Contexts.MainContext
 {
-    public void Enable() =>
-        SetActive(true);
+    public class ConfettiEffectView : ParticleEffectView
+    {
+        public void Enable() =>
+            SetActive(true);
+    }
 }

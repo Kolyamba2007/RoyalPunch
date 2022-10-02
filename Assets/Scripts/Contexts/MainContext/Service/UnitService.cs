@@ -1,46 +1,49 @@
 using System.Linq;
 
-public class UnitService : IUnitService
+namespace Contexts.MainContext
 {
-    [Inject] public IUnitState UnitState { get; set; }
-
-    public void AddUnit(UnitView view, IUnitData data)
+    public class UnitService : IUnitService
     {
-        ushort id = GetID();
+        [Inject] public IUnitState UnitState { get; set; }
 
-        view.SetID(id);
-        UnitState.Health.Add(id, data.MaxHealth);
-    }
+        public void AddUnit(UnitView view, IUnitData data)
+        {
+            ushort id = GetID();
 
-    public void Remove(UnitView view)
-    {
-        if (UnitState.Health.TryGetValue(view.ID, out int _))
-            UnitState.Health.Remove(view.ID);
-    }
+            view.SetID(id);
+            UnitState.Health.Add(id, data.MaxHealth);
+        }
 
-    public void SetDamage(UnitView view, int damage)
-    {
-        if (UnitState.Health.TryGetValue(view.ID, out int health))
-            health = UnitState.Health[view.ID] -= damage;
+        public void Remove(UnitView view)
+        {
+            if (UnitState.Health.TryGetValue(view.ID, out int _))
+                UnitState.Health.Remove(view.ID);
+        }
 
-        if (health < 0) UnitState.Health[view.ID] = 0;
-    }
+        public void SetDamage(UnitView view, int damage)
+        {
+            if (UnitState.Health.TryGetValue(view.ID, out int health))
+                health = UnitState.Health[view.ID] -= damage;
 
-    public void SetDamage(UnitView view, int damage, out int remainingHealth)
-    {
-        if (UnitState.Health.TryGetValue(view.ID, out int health))
-            health = UnitState.Health[view.ID] -= damage;
+            if (health < 0) UnitState.Health[view.ID] = 0;
+        }
 
-        remainingHealth = health > 0 ? health : 0;
-    }
+        public void SetDamage(UnitView view, int damage, out int remainingHealth)
+        {
+            if (UnitState.Health.TryGetValue(view.ID, out int health))
+                health = UnitState.Health[view.ID] -= damage;
 
-    private ushort GetID()
-    {
-        var id = UnitState.Health.Keys;
+            remainingHealth = health > 0 ? health : 0;
+        }
 
-        if(id.Count != 0)
-            return (ushort)(id.Max() + 1);
-        else
-            return 0;
+        private ushort GetID()
+        {
+            var id = UnitState.Health.Keys;
+
+            if (id.Count != 0)
+                return (ushort) (id.Max() + 1);
+            else
+                return 0;
+        }
     }
 }

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 
-public interface IUnitState
+namespace Contexts.MainContext
 {
-    Dictionary<ushort, int> Health { get; }
+    public interface IUnitState
+    {
+        Dictionary<ushort, int> Health { get; }
+    }
 }

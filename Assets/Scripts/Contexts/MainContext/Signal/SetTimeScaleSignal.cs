@@ -1,3 +1,6 @@
 using strange.extensions.signal.impl;
 
-public class SetTimeScaleSignal : Signal<float> { }
+namespace Contexts.MainContext
+{
+    public class SetTimeScaleSignal : Signal<float> { }
+}

@@ -1,19 +1,22 @@
-public class PlayButtonMediator : ViewMediator<PlayButtonView>
+namespace Contexts.MainContext
 {
-    [Inject] public StartCameraTransitionSignal StartCameraTransitionSignal { get; set; }
-
-    public override void OnRegister()
+    public class PlayButtonMediator : ViewMediator<PlayButtonView>
     {
-        View.ClickSignal.AddListener(OnViewClick);
-    }
+        [Inject] public StartCameraTransitionSignal StartCameraTransitionSignal { get; set; }
 
-    public override void OnRemove()
-    {
-        View.ClickSignal.RemoveListener(OnViewClick);
-    }
+        public override void OnRegister()
+        {
+            View.ClickSignal.AddListener(OnViewClick);
+        }
 
-    private void OnViewClick()
-    {
-        StartCameraTransitionSignal.Dispatch();
+        public override void OnRemove()
+        {
+            View.ClickSignal.RemoveListener(OnViewClick);
+        }
+
+        private void OnViewClick()
+        {
+            StartCameraTransitionSignal.Dispatch();
+        }
     }
 }

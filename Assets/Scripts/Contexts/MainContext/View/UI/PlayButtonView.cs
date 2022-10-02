@@ -3,25 +3,28 @@ using strange.extensions.signal.impl;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayButtonView : View
+namespace Contexts.MainContext
 {
-    [SerializeField] private Button button;
-
-    public Signal ClickSignal { get; } = new Signal();
-    
-    private void OnValidate()
+    public class PlayButtonView : View
     {
-        button = GetComponent<Button>();
-    }
+        public Signal ClickSignal { get; } = new Signal();
     
-    protected override void Start()
-    {
-        base.Start();
-
-        button.onClick.AddListener(() =>
+        [SerializeField] private Button button;
+    
+        private void OnValidate()
         {
-            ClickSignal.Dispatch();
-            gameObject.SetActive(false);
-        });
+            button = GetComponent<Button>();
+        }
+    
+        protected override void Start()
+        {
+            base.Start();
+
+            button.onClick.AddListener(() =>
+            {
+                ClickSignal.Dispatch();
+                gameObject.SetActive(false);
+            });
+        }
     }
 }

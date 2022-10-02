@@ -1,27 +1,30 @@
-public class CameraMediator : ViewMediator<CameraView>
+namespace Contexts.MainContext
 {
-    [Inject] public StartCameraTransitionSignal StartCameraTransitionSignal { get; set; }
-    [Inject] public StartGameSignal StartGameSignal { get; set; }
-    [Inject] public WinSignal WinSignal { get; set; }
-
-    public override void OnRegister()
+    public class CameraMediator : ViewMediator<CameraView>
     {
-        StartCameraTransitionSignal.AddListener(View.StartMove);
-        WinSignal.AddListener(View.StartMove);
-        View.ReachedFinalPositionSignal.AddListener(OnReachFinalPosition);
-    }
+        [Inject] public StartCameraTransitionSignal StartCameraTransitionSignal { get; set; }
+        [Inject] public StartGameSignal StartGameSignal { get; set; }
+        [Inject] public WinSignal WinSignal { get; set; }
 
-    public override void OnRemove()
-    {
-        StartCameraTransitionSignal.RemoveListener(View.StartMove);
-        WinSignal.RemoveListener(View.StartMove);
-        View.ReachedFinalPositionSignal.RemoveListener(OnReachFinalPosition);
+        public override void OnRegister()
+        {
+            StartCameraTransitionSignal.AddListener(View.StartMove);
+            WinSignal.AddListener(View.StartMove);
+            View.ReachedFinalPositionSignal.AddListener(OnReachFinalPosition);
+        }
+
+        public override void OnRemove()
+        {
+            StartCameraTransitionSignal.RemoveListener(View.StartMove);
+            WinSignal.RemoveListener(View.StartMove);
+            View.ReachedFinalPositionSignal.RemoveListener(OnReachFinalPosition);
         
-        View.StopAllCoroutines();
-    }
+            View.StopAllCoroutines();
+        }
 
-    private void OnReachFinalPosition()
-    {
-        StartGameSignal.Dispatch();
+        private void OnReachFinalPosition()
+        {
+            StartGameSignal.Dispatch();
+        }
     }
 }

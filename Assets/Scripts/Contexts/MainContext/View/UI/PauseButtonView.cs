@@ -3,35 +3,38 @@ using strange.extensions.signal.impl;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseButtonView : View
+namespace Contexts.MainContext
 {
-    [SerializeField] private Button button;
-
-    public Signal ClickSignal { get; } = new Signal();
-    
-    private void OnValidate()
+    public class PauseButtonView : View
     {
-        button = GetComponent<Button>();
-    }
+        public Signal ClickSignal { get; } = new Signal();
     
-    protected override void Start()
-    {
-        base.Start();
-
-        button.onClick.AddListener(() =>
+        [SerializeField] private Button button;
+    
+        private void OnValidate()
         {
-            ClickSignal.Dispatch();
-            Disable();
-        });
-    }
+            button = GetComponent<Button>();
+        }
     
-    public void Enable()
-    {
-        gameObject.SetActive(true);
-    }
+        protected override void Start()
+        {
+            base.Start();
+
+            button.onClick.AddListener(() =>
+            {
+                ClickSignal.Dispatch();
+                Disable();
+            });
+        }
     
-    public void Disable()
-    {
-        gameObject.SetActive(false);
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+        }
+    
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

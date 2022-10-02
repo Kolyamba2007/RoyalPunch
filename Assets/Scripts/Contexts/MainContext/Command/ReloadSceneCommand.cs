@@ -1,10 +1,13 @@
 using strange.extensions.command.impl;
 using UnityEngine.SceneManagement;
 
-public class ReloadSceneCommand : Command
+namespace Contexts.MainContext
 {
-    public override void Execute()
+    public class ReloadSceneCommand : Command
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        public override void Execute()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }

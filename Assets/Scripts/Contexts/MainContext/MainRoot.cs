@@ -1,9 +1,12 @@
 using strange.extensions.context.impl;
 
-public class MainRoot : ContextView
+namespace Contexts.MainContext
 {
-    void Awake()
+    public class MainRoot : ContextView
     {
-        context = new MainContext(this);
+        void Awake()
+        {
+            context = new MainContext(this);
+        }
     }
 }

@@ -3,29 +3,32 @@ using strange.extensions.signal.impl;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PausePanelView : View
+namespace Contexts.MainContext
 {
-    [SerializeField] private Button menuButton;
-    [SerializeField] private Button continueButton;
-    
-    public Signal MenuButtonClickSignal { get; } = new Signal();
-    public Signal ContinueButtonClickSignal { get; } = new Signal();
-    
-    protected override void Start()
+    public class PausePanelView : View
     {
-        base.Start();
+        public Signal MenuButtonClickSignal { get; } = new Signal();
+        public Signal ContinueButtonClickSignal { get; } = new Signal();
+    
+        [SerializeField] private Button menuButton;
+        [SerializeField] private Button continueButton;
+    
+        protected override void Start()
+        {
+            base.Start();
 
-        menuButton.onClick.AddListener(() => MenuButtonClickSignal.Dispatch());
-        continueButton.onClick.AddListener(() => ContinueButtonClickSignal.Dispatch());
-    }
+            menuButton.onClick.AddListener(() => MenuButtonClickSignal.Dispatch());
+            continueButton.onClick.AddListener(() => ContinueButtonClickSignal.Dispatch());
+        }
     
-    public void Enable()
-    {
-        gameObject.SetActive(true);
-    }
+        public void Enable()
+        {
+            gameObject.SetActive(true);
+        }
     
-    public void Disable()
-    {
-        gameObject.SetActive(false);
+        public void Disable()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

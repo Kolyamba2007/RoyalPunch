@@ -1,3 +1,6 @@
 using strange.extensions.signal.impl;
 
-public class ReloadSceneSignal : Signal { }
+namespace Contexts.MainContext
+{
+    public class ReloadSceneSignal : Signal { }
+}

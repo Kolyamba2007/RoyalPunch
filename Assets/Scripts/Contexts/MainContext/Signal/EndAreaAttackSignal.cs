@@ -1,3 +1,6 @@
 using strange.extensions.signal.impl;
 
-public class EndAreaAttackSignal : Signal { }
+namespace Contexts.MainContext
+{
+    public class EndAreaAttackSignal : Signal { }
+}

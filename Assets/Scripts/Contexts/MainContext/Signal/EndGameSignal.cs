@@ -1,3 +1,6 @@
 using strange.extensions.signal.impl;
 
-public class EndGameSignal : Signal { }
+namespace Contexts.MainContext
+{
+    public class EndGameSignal : Signal { }
+}

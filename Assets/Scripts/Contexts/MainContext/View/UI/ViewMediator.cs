@@ -1,6 +1,9 @@
 using strange.extensions.mediation.impl;
 
-public class ViewMediator<T> : Mediator
+namespace Contexts.MainContext
 {
-    [Inject] public T View { get; set; }
+    public class ViewMediator<T> : Mediator
+    {
+        [Inject] public T View { get; set; }
+    }
 }

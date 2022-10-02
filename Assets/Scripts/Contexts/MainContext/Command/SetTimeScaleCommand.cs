@@ -1,12 +1,15 @@
 using strange.extensions.command.impl;
 using UnityEngine;
 
-public class SetTimeScaleCommand : Command
+namespace Contexts.MainContext
 {
-    [Inject] public float TimeScale { get; set; }
-
-    public override void Execute()
+    public class SetTimeScaleCommand : Command
     {
-        Time.timeScale = TimeScale;
+        [Inject] public float TimeScale { get; set; }
+
+        public override void Execute()
+        {
+            Time.timeScale = TimeScale;
+        }
     }
 }

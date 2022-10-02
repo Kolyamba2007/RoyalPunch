@@ -1,3 +1,6 @@
 using strange.extensions.signal.impl;
 
-public class StartCameraTransitionSignal : Signal { }
+namespace Contexts.MainContext
+{
+    public class StartCameraTransitionSignal : Signal { }
+}

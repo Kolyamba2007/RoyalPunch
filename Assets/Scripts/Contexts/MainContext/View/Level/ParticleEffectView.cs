@@ -1,20 +1,23 @@
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
-public class ParticleEffectView : View
+namespace Contexts.MainContext
 {
-    [SerializeField] private ParticleSystem particleSystem;
-
-    private void OnValidate()
+    public class ParticleEffectView : View
     {
-        particleSystem = GetComponent<ParticleSystem>();
-    }
+        [SerializeField] private ParticleSystem particleSystem;
 
-    public void SetActive(bool enabled)
-    {
-        if (enabled)
-            particleSystem.Play();
-        else
-            particleSystem.Stop();
+        private void OnValidate()
+        {
+            particleSystem = GetComponent<ParticleSystem>();
+        }
+
+        public void SetActive(bool enabled)
+        {
+            if (enabled)
+                particleSystem.Play();
+            else
+                particleSystem.Stop();
+        }
     }
 }
