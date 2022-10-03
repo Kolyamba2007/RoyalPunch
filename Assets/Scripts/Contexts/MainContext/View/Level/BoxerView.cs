@@ -54,17 +54,17 @@ namespace Contexts.MainContext
             animator.SetTrigger(winAnimTriggerName);
         }
 
-        public void StartMoveCoroutine()
+        public void StartMove()
         {
             _move = StartCoroutine(Move());
         }
 
-        public void StartBossDetectCoroutine()
+        public void StartBossDetect()
         {
             StartCoroutine(UnitDetect(BoxerData.DefaultAttackRange, bossLayer));
         }
 
-        public void StartAttackCoroutine()
+        public void StartAttack()
         {
             _attack = StartCoroutine(Attack());
         }
@@ -134,8 +134,8 @@ namespace Contexts.MainContext
             animator.enabled = true;
             _controls.Character.Enable();
 
-            StartMoveCoroutine();
-            StartAttackCoroutine();
+            StartMove();
+            StartAttack();
         }
 
         private IEnumerator Attack()

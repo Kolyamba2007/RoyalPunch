@@ -17,6 +17,6 @@ MonoBehaviour:
     defaultAttackDamage: 10
     defaultAttackRange: 2
     movementSpeed: 7
-    force: 300
+    force: 400
     knockoutDuration: 2
     upTime: 0.5

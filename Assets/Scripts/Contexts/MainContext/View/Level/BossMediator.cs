@@ -12,13 +12,13 @@ namespace Contexts.MainContext
         {
             base.OnRegister();
 
-            StartGameSignal.AddListener(View.StartRotateToTargetCoroutine);
-            StartGameSignal.AddListener(View.StartBoxerDetectCoroutine);
-            StartGameSignal.AddListener(View.StartUseSuperAttackCoroutine);
-            StartGameSignal.AddListener(View.StartAttackCoroutine);
-            EndGameSignal.AddListener(View.StopAllCoroutines);
+            StartGameSignal.AddListener(View.StartRotateToTarget);
+            StartGameSignal.AddListener(View.StartBoxerDetect);
+            StartGameSignal.AddListener(View.StartUseSuperAttack);
+            StartGameSignal.AddListener(View.StartAttack);
             LoseSignal.AddListener(View.SetWinViewState);
-
+            EndGameSignal.AddListener(View.StopAllCoroutines);
+            
             View.HitUnitSignal.AddListener(OnBoxerHit);
             View.SuperAttackSignal.AddListener(OnBoxerSuperHit);
             View.MagneticAttackSignal.AddListener(SetMagneticEffectActiveSignal.Dispatch);
@@ -35,12 +35,12 @@ namespace Contexts.MainContext
         {
             base.OnRemove();
 
-            StartGameSignal.RemoveListener(View.StartRotateToTargetCoroutine);
-            StartGameSignal.RemoveListener(View.StartBoxerDetectCoroutine);
-            StartGameSignal.RemoveListener(View.StartUseSuperAttackCoroutine);
-            StartGameSignal.RemoveListener(View.StartAttackCoroutine);
-            EndGameSignal.RemoveListener(View.StopAllCoroutines);
+            StartGameSignal.RemoveListener(View.StartRotateToTarget);
+            StartGameSignal.RemoveListener(View.StartBoxerDetect);
+            StartGameSignal.RemoveListener(View.StartUseSuperAttack);
+            StartGameSignal.RemoveListener(View.StartAttack);
             LoseSignal.RemoveListener(View.SetWinViewState);
+            EndGameSignal.RemoveListener(View.StopAllCoroutines);
 
             View.HitUnitSignal.RemoveListener(OnBoxerHit);
             View.SuperAttackSignal.RemoveListener(OnBoxerSuperHit);
@@ -78,6 +78,7 @@ namespace Contexts.MainContext
                 {
                     unitView.UpdateHealthBar(remainingHealth);
                     unitView.StartCoroutine((unitView as BoxerView)?.KnockoutWithUp(direction, View.BossData.Force, true));
+                    View.StartRest();
                 }
                 else
                 {

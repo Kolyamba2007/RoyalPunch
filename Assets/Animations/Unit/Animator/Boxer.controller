@@ -164,7 +164,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: e2db31580492ebf4a8cb0974f7ef63a6, type: 2}
     m_Threshold: 0
-    m_Position: {x: 1, y: 0.01}
+    m_Position: {x: 1, y: 0.0001}
     m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity Z
@@ -172,7 +172,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 5dd63ee257153ef4c8273ba7a799df07, type: 2}
     m_Threshold: 0
-    m_Position: {x: -1, y: 0.01}
+    m_Position: {x: -1, y: 0.0001}
     m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity Z
@@ -180,7 +180,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 863a50c602a8ca74dae89c3c60f943a8, type: 2}
     m_Threshold: 0
-    m_Position: {x: 1, y: -0.01}
+    m_Position: {x: 1, y: -0.0001}
     m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity Z
@@ -188,7 +188,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 63348d80b23710d48821fc6ddee38a04, type: 2}
     m_Threshold: 0
-    m_Position: {x: -1, y: -0.01}
+    m_Position: {x: -1, y: -0.0001}
     m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: Velocity Z

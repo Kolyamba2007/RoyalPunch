@@ -11,8 +11,8 @@ namespace Contexts.MainContext
             base.OnRegister();
         
             StartGameSignal.AddListener(View.SetStartAnimTrigger);
-            StartGameSignal.AddListener(View.StartBossDetectCoroutine);
-            StartGameSignal.AddListener(View.StartAttackCoroutine);
+            StartGameSignal.AddListener(View.StartBossDetect);
+            StartGameSignal.AddListener(View.StartAttack);
             WinSignal.AddListener(View.SetWinViewState);
             EndGameSignal.AddListener(View.StopAllCoroutines);
         
@@ -23,7 +23,7 @@ namespace Contexts.MainContext
         
             UnitService.AddUnit(View, View.BoxerData);
         
-            View.StartMoveCoroutine();
+            View.StartMove();
         }
 
         public override void OnRemove()
@@ -31,8 +31,8 @@ namespace Contexts.MainContext
             base.OnRemove();
         
             StartGameSignal.RemoveListener(View.SetStartAnimTrigger);
-            StartGameSignal.RemoveListener(View.StartBossDetectCoroutine);
-            StartGameSignal.RemoveListener(View.StartAttackCoroutine);
+            StartGameSignal.RemoveListener(View.StartBossDetect);
+            StartGameSignal.RemoveListener(View.StartAttack);
             WinSignal.RemoveListener(View.SetWinViewState);
             EndGameSignal.RemoveListener(View.StopAllCoroutines);
         
@@ -46,9 +46,12 @@ namespace Contexts.MainContext
             if (collider.TryGetComponent(out UnitView unitView))
             {
                 UnitService.SetDamage(unitView, View.BoxerData.DefaultAttackDamage, out int remainingHealth);
-        
-                if(remainingHealth != 0)
+
+                if (remainingHealth != 0)
+                {
                     unitView.UpdateHealthBar(remainingHealth);
+                    (unitView as BossView)?.AddForce(transform.forward, View.BoxerData.Force);
+                }
                 else
                 {
                     WinSignal.Dispatch();

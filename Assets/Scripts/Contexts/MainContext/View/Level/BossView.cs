@@ -12,7 +12,8 @@ namespace Contexts.MainContext
         public Signal EndAreaAttackSignal { get; } = new Signal();
     
         [Space, SerializeField] private Rigidbody bossRb;
-        [SerializeField] private Rigidbody bossHeadRb;
+        [SerializeField] private Rigidbody bossSpineRb;
+        [SerializeField] private GameObject spineGm;
         [Space, SerializeField] private LayerMask boxerLayer;
         [SerializeField] private Transform boxerTransform;
         [Space, SerializeField] private Animator animator;
@@ -34,6 +35,8 @@ namespace Contexts.MainContext
             base.Awake();
 
             bossRb.isKinematic = true;
+            spineGm.SetActive(false);
+            bossSpineRb.isKinematic = false;
         }
 
         public void SetData(BossData bossData)
@@ -44,42 +47,50 @@ namespace Contexts.MainContext
         public void SetWinViewState()
         {
             Hit = 0;
-        
+            
             if(animator.GetBool(attackAnimBoolName))
                 animator.SetBool(attackAnimBoolName, false);
-            if(animator.GetBool(restAnimBoolName))
-                animator.SetBool(restAnimBoolName, false);
         }
-    
+
+        public void AddForce(Vector3 direction, int force)
+        {
+            bossSpineRb.AddForce(direction * force, ForceMode.Impulse);
+        }
+        
         public void Knockout(Vector3 direction, int force)
         {
             animator.enabled = false;
-            bossRb.isKinematic = false;
             
+            spineGm.SetActive(true);
             SetRagdollActive(true);
-            bossHeadRb.AddForce(direction * force, ForceMode.Impulse);
+            AddForce(direction, force);
         }
     
-        public void StartRotateToTargetCoroutine()
+        public void StartRotateToTarget()
         {
             _rotateToTarget = StartCoroutine(RotateToTarget(boxerTransform));
         }
     
-        public void StartBoxerDetectCoroutine()
+        public void StartBoxerDetect()
         {
             StartCoroutine(UnitDetect(BossData.DefaultAttackRange, boxerLayer));
         }
     
-        public void StartAttackCoroutine()
+        public void StartAttack()
         {
             _attack = StartCoroutine(Attack());
         }
     
-        public void StartUseSuperAttackCoroutine()
+        public void StartUseSuperAttack()
         {
             _useSuperAttack = StartCoroutine(UseSuperAttack());
         }
-    
+
+        public void StartRest()
+        {
+            StartCoroutine(Rest());
+        }
+        
         private IEnumerator RotateToTarget(Transform target)
         {
             while (true)
@@ -145,13 +156,15 @@ namespace Contexts.MainContext
                 animator.SetBool(restAnimBoolName, true);
         
             yield return new WaitForSeconds(BossData.RestDuration);
-        
+
             if (animator.GetBool(restAnimBoolName))
+            {
                 animator.SetBool(restAnimBoolName, false);
-        
-            StartAttackCoroutine();
-            StartRotateToTargetCoroutine();
-            StartUseSuperAttackCoroutine();
+
+                StartAttack();
+                StartRotateToTarget();
+                StartUseSuperAttack();
+            }
         }
     
         private IEnumerator AreaAttack()
@@ -219,7 +232,7 @@ namespace Contexts.MainContext
                 animator.SetBool(fistPunchAnimBoolName, false);
         
             StopCoroutine(_rotateToTarget);
-            StartCoroutine(Rest());
+            StartRest();
         
             if (animator.GetBool(rotateAnimBoolName))
                 animator.SetBool(rotateAnimBoolName, false);
@@ -248,8 +261,8 @@ namespace Contexts.MainContext
 
             if (Hit != 0)
                 SuperAttackSignal.Dispatch(ResultHit[0].collider, transform.forward + transform.up );
-
-            StartCoroutine(Rest());
+            else
+                StartCoroutine(Rest());
         }
 
         private void OnAreaAttack()
@@ -268,8 +281,8 @@ namespace Contexts.MainContext
                 if (boxerTransform.TryGetComponent<Collider>(out Collider collider))
                     SuperAttackSignal.Dispatch(collider, -boxerTransform.forward);
             }
-
-            StartCoroutine(Rest());
+            else
+                StartCoroutine(Rest());
         }
     }
 }
